@@ -60,10 +60,6 @@ If installed properly, the result will be displayed as below. (There might be so
 
 Download Image Captioning Program and Run
 -------
-In the `/home/pi/chainer-caption`directory, download the captioning program from the GitHub repository.
-```
-wget https://raw.githubusercontent.com/yoshihiroo/programming-workshop/master/image_captioning_and_speech/image_captioning.py
-```
 
 Run the captioning program by `python3 image_captioning.py`.
 
