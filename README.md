@@ -35,7 +35,6 @@ sudo apt-get install espeak
 sudo apt-get install python3-picamera
 sudo apt-get install libatlas-base-dev
 ```
-
 Download Test Code and Run
 -------
 Download from the Git repository and test sample code by commands below.
