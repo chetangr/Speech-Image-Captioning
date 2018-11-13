@@ -47,7 +47,7 @@ bash download.sh
 python3 sample_code_beam.py --rnn-model ./data/caption_en_model40.model --cnn-model ./data/ResNet50.model --vocab ./data/MSCOCO/mscoco_caption_train2014_processed_dic.json --gpu -1 --img ./sample_imgs/COCO_val2014_000000185546.jpg
 ```
 
-If installed properly, the result will be displayed as below. (There might be some warnings..)
+If installed properly, the result will be displayed as below with some warnings.
 
 ```
 <sos> a bathroom with a toilet and a shower <eos>
@@ -58,7 +58,7 @@ If installed properly, the result will be displayed as below. (There might be so
 -8.537529528141022
 ```
 
-Download Image Captioning Program and Run
+Run Image Captioning Program
 -------
 
 Run the captioning program by `python3 image_captioning.py`.
