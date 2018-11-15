@@ -1,8 +1,8 @@
 # The original source code is created by Satoshi Tsutsui and downloadable at the GitHub below.
 # https://github.com/apple2373/chainer-caption
-#
 # Based on the code, I modified and added some code to capture an image from the camera module.
 
+# Import libraries
 import sys, os, subprocess, picamera, json
 import json
 import chainer
@@ -17,12 +17,13 @@ from chainer import serializers
 sys.path.append('./code')
 from CaptionGenerator import CaptionGenerator
 
+# Raspberry Pi camera
 camera = picamera.PiCamera()
 camera.resolution = (224, 224)
 
 devnull = open('os.devnull', 'w')
 
-#Parse arguments
+# Parse arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("-g", "--gpu",default=-1, type=int, help=u"GPU ID.CPU is -1")
 parser.add_argument('--beam',default=3, type=int,help='beam size in beam search')
@@ -30,19 +31,23 @@ parser.add_argument('--depth',default=50, type=int,help='depth limit in beam sea
 parser.add_argument('--lang',default="<sos>", type=str,help='special word to indicate the langauge or just <sos>')
 args = parser.parse_args()
 
-caption_generator=CaptionGenerator(
+# Caption Generator model
+caption_gen=CaptionGenerator(
     rnn_model_place='./data/caption_en_model40.model',
     cnn_model_place='./data/ResNet50.model',
     dictonary_place='./data/MSCOCO/mscoco_caption_train2014_processed_dic.json',
     beamsize=args.beam,
     depth_limit=args.depth,
     gpu_id=args.gpu,
-    first_word= args.lang,
-    )
+    first_word= args.lang)
 
+# Capture image and output the caption
 while True:
+    # Capture Image
     camera.capture('image.jpg')
-    captions = caption_generator.generate('image.jpg')
+    captions = caption_gen.generate('image.jpg')
     word = " ".join(captions[0]["sentence"][1:-1])
+    # print the word on the screen
     print(word)
-    subprocess.run(["espeak", "-k5", "-s150", word], stdout=devnull, stderr=subprocess.STDOUT)
+    speak = ["espeak", "-k5", "-s150", word]
+    subprocess.run(speak, stdout=devnull, stderr=subprocess.STDOUT)
